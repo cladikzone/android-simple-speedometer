@@ -46,13 +46,18 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     @Override
     public void onLocationChanged(Location location) {
         TextView view  = (TextView) this.findViewById(R.id.dashView);
+        TextView actual = (TextView) this.findViewById(R.id.actualView);
 
         if(location == null) {
             view.setText("0.0 Km/h");
         } else {
-            double currentSpeed = (location.getSpeed()*2.2369);
+            //location.setAccuracy(1);
+            float speedInMs = location.getSpeed();
+
+            double currentSpeed = ( speedInMs * 3.6 );
             String speed = currentSpeed + "Km/h".toString();
             view.setText(speed);
+            actual.setText(speedInMs + "m/s");
         }
     }
 
